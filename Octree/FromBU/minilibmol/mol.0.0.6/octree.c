@@ -1011,7 +1011,7 @@ int push_down( int node_id, OCTREE *octree, int atom_id )
 }
 
 
-
+// Moves node up in the octree
 int pull_up( int node_id, OCTREE *octree, int atom_id )
 {
    OCTREE_NODE *node = &( octree->nodes[ node_id ] );
@@ -1244,7 +1244,7 @@ int reorganize_octree( OCTREE *octree, int batch_update )
           {
             mol_atom *atom = &( octree->atoms[ i ] );
             if ( !atom->fixed ) update_octree( octree, atom );
-          }       
+          }
      }  
      
    return 1;

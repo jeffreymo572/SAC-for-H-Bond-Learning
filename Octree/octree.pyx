@@ -262,7 +262,7 @@ def has_duplicates(array):
 cdef ptr_to_nparray_double(double * ptr, int size):
     if size == 0:
         raise RuntimeError('size cannot be 0')
-    cdef double[:] view = <double[:]> ptr[:size]
+    cdef double[:] view = <double[:size]> ptr
     return np.asarray(view)
 
 # Converst int pointer to an array
@@ -270,7 +270,7 @@ cdef ptr_to_nparray_double(double * ptr, int size):
 cdef ptr_to_nparray_int(int * ptr, int size):
     if size == 0:
         raise RuntimeError('size cannot be 0')
-    cdef int[:] view = <int[:]> ptr[:size]
+    cdef int[:] view = <int[:size]> ptr
     return np.asarray(view)
 
 # Converts double array to python list
