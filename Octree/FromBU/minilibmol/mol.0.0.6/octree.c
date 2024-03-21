@@ -719,26 +719,28 @@ inline int add_upward_migrating_atom_to_non_leaf( int node_id, OCTREE *octree, i
 
    if ( !m )
      {
+      // Allocates memory for new node
        node->indices = ( int * ) _mol_malloc( INIT_MIGRATION_ARRAY_SIZE * sizeof( int ) );
-//       node->indices = ( int * ) memalign( ALIGNMENT_BLOCK_SIZE, INIT_MIGRATION_ARRAY_SIZE * sizeof( int ) );
+      // node->indices = ( int * ) memalign( ALIGNMENT_BLOCK_SIZE, INIT_MIGRATION_ARRAY_SIZE * sizeof( int ) );
        
        if ( node->indices == NULL )
          {
-           print_error( "Failed to allocate temporary migration array for octree!" );
-	   return 0;
+            print_error( "Failed to allocate temporary migration array for octree!" );
+	          return 0;
          }                  
          
        node->id_cap = INIT_MIGRATION_ARRAY_SIZE;  
      }
-     
+   
+   // If new node exceeds octree node limit
    if ( m == node->id_cap )
      {
        node->indices = ( int * ) _mol_realloc( node->indices, ( node->id_cap << 1 ) * sizeof( int ) );
        
        if ( node->indices == NULL )
          {
-           print_error( "Failed to reallocate temporary migration array for octree!" );
-	   return 0;
+          print_error( "Failed to reallocate temporary migration array for octree!" );
+	        return 0;
          }                  
          
        node->id_cap <<= 1;  
@@ -1037,6 +1039,7 @@ int batch_pull_up( int node_id, OCTREE *octree, int *empty )
 {
    OCTREE_NODE *node = &( octree->nodes[ node_id ] );
    
+   // Octree empty?
    if ( node->n == node->nfixed )
      {
        *empty = ( node->n == 0 );
