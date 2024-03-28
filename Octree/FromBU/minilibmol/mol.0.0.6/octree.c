@@ -654,7 +654,7 @@ inline int remove_atom_from_leaf( int node_id, OCTREE *octree, int atom_id )
        
        node->id_cap >>= 1;
      }
-
+  
 #ifdef ADD_ATTR        
    node->sx -= atom->X;
    node->sy -= atom->Y;
